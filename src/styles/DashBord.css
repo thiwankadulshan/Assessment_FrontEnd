@@ -1,0 +1,29 @@
+.dashbord-main-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10%;
+}
+.thead-dark {
+    font-size: 24px;
+}
+.tbody {
+    font-size: 14px; 
+}
+.search {
+    padding-top: 5%;
+    margin: auto;
+    width: 70%;
+
+}
+
+.pagination-data-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-previous:hover,
+.pagination-next:hover {
+    cursor: pointer;
+    color: blue;
+}
