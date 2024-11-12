@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { apiEndPoint } from "../api/ApiEndPoints";
 import { getRequest, postRequest } from "../api/axiosCalls";
 import Navbar from "../components/NavBar";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/AddItem.css"
 import { useNavigate } from "react-router-dom";
 
@@ -35,6 +36,7 @@ const AddItem = () => {
 
     const submiHandle = (e) => {
         e.preventDefault();
+        const userId = sessionStorage.getItem("userId");
         postRequest(apiEndPoint.addItem, { 
             itemName : itemName,
             material : material,
@@ -42,14 +44,16 @@ const AddItem = () => {
             pricePerItem : pricePerItem,
             materialType : materialType,
             itemType : itemType,
-            newBuyerCheck : newBuyerCheck
+            newBuyerCheck : newBuyerCheck,
+            userId : userId
         })
         .then((response) => {
-            console.log("RESPONSE IS: ",response.data.status);
-            
-            response.data.state === "Success" ?
+            console.log("RESPONSE IS: ",response.data);
+            response.data.status === "Success" ?
                 (toast.success("Add Successfully "),
-                 navigate("/dashbord"))
+                    setTimeout(() => 
+                        navigate("/dashbord")
+                    , 3500))
              : toast.error("!Unsuccessful");})
         .catch((error) => console.error(error))
     }
@@ -117,6 +121,7 @@ const AddItem = () => {
                     </div>
                 </form>
             </div>
+            <ToastContainer/>
         </>
     );
 };

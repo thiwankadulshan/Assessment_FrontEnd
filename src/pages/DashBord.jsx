@@ -45,10 +45,7 @@ const DashBord = () => {
         <>
             <Navbar />
             <div className="search input-group">
-                <input type="text" className="form-control p-3" placeholder="Item Code" aria-label="Recipient's username" aria-describedby="basic-addon2" onChange={serchItem} />
-                <div className="input-group-append">
-                    <button className="btn btn-primary p-3" type="button">Search</button>
-                </div>
+                <input type="text" className="form-control p-3" placeholder="SEARCH ITEM CODE" aria-label="Recipient's username" aria-describedby="basic-addon2" onChange={serchItem} />
             </div>
             <div className="dashbord-main-container">
                 <table className="table table-striped">

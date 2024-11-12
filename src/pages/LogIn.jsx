@@ -13,6 +13,7 @@ const LogIn = () => {
         postRequest(apiEndPoint.logIn,{userId : userId, userPassword : userPassword})
         .then((response) => {
             response.data.status === "Success" ? navigate("/dashbord") : navigate("/");
+            sessionStorage.setItem("userId",userId);
         })
         .catch((error) => console.error(error))
     }
