@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DashBord from './pages/Dashbord';
+import DashBord from './pages/DashBord';
 import AddItem from './pages/AddItem';
 import LogIn from './pages/LogIn';
 function App() {
