@@ -1,9 +1,9 @@
-export const Increment = (setNumber,number) => {
+export const increment = (setNumber,number) => {
     number += 1
     setNumber(number)
 }
 
-export const Decrement = (setNumber, number) => {
+export const decrement = (setNumber, number) => {
     number -= 1
     setNumber(number)
 }

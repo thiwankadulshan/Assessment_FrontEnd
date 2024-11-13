@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DashBord from './pages/DashBord';
+import DashBoard from './pages/DashBoard';
 import AddItem from './pages/AddItem';
 import LogIn from './pages/LogIn';
 function App() {
@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
           <Route path='/' element={<LogIn/>}/>
-          <Route path='/dashbord' element={<DashBord/>}/>
+          <Route path='/dashboard' element={<DashBoard/>}/>
           <Route path='/addItem' element={<AddItem/>}/>
       </Routes>
     </BrowserRouter>

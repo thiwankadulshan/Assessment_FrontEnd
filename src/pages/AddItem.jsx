@@ -12,9 +12,10 @@ const AddItem = () => {
     const [itemName, setItemName] = useState("");
     const [material, setMaterial] = useState("");
     const [supplierName, setSupplierName] = useState("");
-    const [pricePerItem, setPricePertem] = useState("");
+    const [pricePerItem, setPricePerItem] = useState("");
     const [materialType, setMaterialType] = useState("");
     const [itemType, setItemType] = useState("");
+    const [percentage, setPercentage] = useState("")
     const [newBuyerCheck, setNewBuyerCheck] = useState(0);
     const [dropDownList, setDropDownList] = useState([]);
     const [buyerState, setBuyerState] = useState(false);
@@ -26,7 +27,7 @@ const AddItem = () => {
         .catch((error) => console.error(error))
     },[])
 
-    const buyerHanddle = (e) => {
+    const buyerHandle = (e) => {
         e.preventDefault();
         const input = e.target.value
         setSupplierName(input)
@@ -34,13 +35,14 @@ const AddItem = () => {
         input === "input" ? setNewBuyerCheck(1) : setNewBuyerCheck(0)
     }
 
-    const submiHandle = (e) => {
+    const submitHandle = (e) => {
         e.preventDefault();
         const userId = sessionStorage.getItem("userId");
         postRequest(apiEndPoint.addItem, { 
             itemName : itemName,
             material : material,
             supplierName : supplierName,
+            percentage : percentage,
             pricePerItem : pricePerItem,
             materialType : materialType,
             itemType : itemType,
@@ -48,11 +50,10 @@ const AddItem = () => {
             userId : userId
         })
         .then((response) => {
-            console.log("RESPONSE IS: ",response.data);
             response.data.status === "Success" ?
                 (toast.success("Add Successfully "),
                     setTimeout(() => 
-                        navigate("/dashbord")
+                        navigate("/dashboard")
                     , 3500))
              : toast.error("!Unsuccessful");})
         .catch((error) => console.error(error))
@@ -61,7 +62,7 @@ const AddItem = () => {
         <>
             <Navbar />
             <div className="additem-main-container">
-                <form className="row g-3 needs-validation" noValidate onSubmit={submiHandle}>
+                <form className="row g-3 needs-validation" noValidate onSubmit={submitHandle}>
                     <div className="col-md-4">
                         <label htmlFor="validationCustom01" className="form-label"> Item Name</label>
                         <input type="text" className="form-control" id="validationCustom01" onChange={(e) => setItemName(e.target.value)} required />
@@ -83,19 +84,19 @@ const AddItem = () => {
                     {itemType === "buy" ?
                         <div className="col-md-4">
                             <label htmlFor="validationCustom01" className="form-label"> Buyer</label>
-                            <select className="form-control" id="validationCustom01" onChange={buyerHanddle} required>
+                            <select className="form-control" id="validationCustom01" onChange={buyerHandle} required>
                                 <option value="">Own/Buy</option>
                                 {dropDownList.map((item, index) => (
                                     <option key={index} value={item.buyerId}>{item.buyerName}</option>
                                 ))}
                                 <option value="input">New Buyer</option>
                             </select>
-                            {buyerState ?
+                            {buyerState &&
                                 <>
                                     <label htmlFor="validationCustombuyer" className="form-label">New Buyer</label>
                                     <input type="text" className="form-control" id="validationCustombuyer" onChange={(e) => setSupplierName(e.target.value)}></input>
                                 </>
-                                : ""}
+                            }
                             <div className="valid-feedback">
                                 Looks good!
                             </div>
@@ -110,8 +111,17 @@ const AddItem = () => {
                     </div>
                     <div className="col-md-6">
                         <label htmlFor="validationCustom03" className="form-label">Price per Item $</label>
-                        <input type="number" className="form-control" id="validationCustom03" onChange={(e) => setPricePertem(e.target.value)} required />
+                        <input type="number" className="form-control" id="validationCustom03" onChange={(e) => setPricePerItem(e.target.value)} required />
                     </div>
+
+                    {itemType === "buy" &&
+                    <>
+                    <div className="col-md-6">
+                        <label htmlFor="validationCustom03presentage" className="form-label">Percentage %</label>
+                        <input type="number" className="form-control" id="validationCustom03presentage" onChange={(e) => setPercentage(e.target.value)} required />
+                    </div>
+                    </>
+                    }
                     <div className="col-md-6">
                         <label htmlFor="validationCustom03" className="form-label">Material Type</label>
                         <input type="text" className="form-control" id="validationCustom03" onChange={(e) => setMaterialType(e.target.value)} required />

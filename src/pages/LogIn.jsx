@@ -12,7 +12,7 @@ const LogIn = () => {
         e.preventDefault();
         postRequest(apiEndPoint.logIn,{userId : userId, userPassword : userPassword})
         .then((response) => {
-            response.data.status === "Success" ? navigate("/dashbord") : navigate("/");
+            response.data.status === "Success" ? navigate("/dashboard") : navigate("/");
             sessionStorage.setItem("userId",userId);
         })
         .catch((error) => console.error(error))
